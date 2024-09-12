@@ -2,7 +2,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     margin: 0;
     background-color: #282c34;
     font-family: 'Roboto', sans-serif;
@@ -20,105 +19,132 @@ canvas {
     background-color: #111;
     border: 3px solid #9945ff;
     border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 h1 {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     font-size: 2em;
     color: #711dd9;
 }
 
 .score-board {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     font-size: 1.2em;
 }
 
 button {
+    background-color: #711dd9;
+    border: none;
+    margin: 5px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #5a0d94;
+}
+
+#restart {
     width: 100px;
     height: 40px;
     font-size: 1em;
     margin-top: 20px;
+}
+
+.game-controls {
+    margin: 20px 0;
+    margin-top: -20px;
+}
+
+#popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    display: none;
+    z-index: 1000;
+}
+
+#popup input {
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 100%;
+}
+
+#popup button {
     background-color: #711dd9;
     color: white;
     border: none;
-    border-radius: 5px;
+    padding: 10px;
+    margin: 5px 0;
     cursor: pointer;
 }
 
-.leaderboard {
-    margin-top: 20px;
-}
-
-input {
-    padding: 5px;
-    font-size: 1em;
-    border-radius: 5px;
-    border: 1px solid #9945ff;
+#popup button:hover {
+    background-color: #5a0d94;
 }
 
 .controls {
+    margin-bottom: 20px;
+}
+
+.joystick {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.controls div {
+.joystick-row {
     display: flex;
     justify-content: center;
 }
 
 .control-btn {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     font-size: 1.5em;
-    margin: 5px;
     background-color: #711dd9;
-    color: white;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
     border-radius: 10px;
-    text-align: center;
-}
-
-.popup-content {
-    color: black;
-}
-
-button#close-popup {
-    margin-top: 20px;
-    background-color: #711dd9;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
+    color: #fff;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 5px;
 }
 
+.control-btn:hover {
+    background-color: #5a0d94;
+}
+.controls{
+    display: none;
+}
 @media (max-width: 600px) {
     canvas {
         width: 100%;
         height: auto;
     }
 
-    button {
-        width: 90px;
-        height: 35px;
-        font-size: 0.9em;
+    .controls {
+        display: flex;
     }
 
     .control-btn {
-        width: 40px;
+        width: 50px;
         height: 40px;
+        font-size: 1.4em;
+    }
+    .game-container{
+        max-width: 250px;
+    }
+    .controls{
+        margin-left: 10px;
+        margin-top: 20px;
     }
 }

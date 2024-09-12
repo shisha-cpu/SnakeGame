@@ -12,6 +12,7 @@ let score = 0;
 let game;
 let gameOverFlag = false;
 const gameSpeed = 100;
+let nickname = '';
 
 function generateFood() {
     return {
@@ -104,28 +105,60 @@ function gameOver() {
         document.getElementById('final-score').innerText = score;
         document.getElementById('popup').style.display = 'block';
         clearInterval(game);
+        saveScore();
     }
 }
 
-function startGame() {
-    snake = [{ x: 9 * box, y: 10 * box }];
-    direction = null;
-    food = generateFood();
-    score = 0;
-    document.getElementById("score").innerText = score;
-    gameOverFlag = false;
-    document.getElementById('popup').style.display = 'none';
-    game = setInterval(drawGame, gameSpeed);
+function saveScore() {
+    if (nickname) {
+        const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+        leaderboard.push({ nickname, score });
+        localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+    }
 }
 
+function showLeaderboard() {
+    const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+    let leaderboardText = 'Leaderboard:\n';
+    leaderboard.forEach(entry => {
+        leaderboardText += `${entry.nickname}: ${entry.score}\n`;
+    });
+    alert(leaderboardText);
+}
+
+function startGame() {
+    nickname = document.getElementById("nickname").value.trim();
+    if (nickname) {
+        snake = [{ x: 9 * box, y: 10 * box }];
+        direction = null;
+        food = generateFood();
+        score = 0;
+        document.getElementById("score").innerText = score;
+        document.getElementById('popup').style.display = 'none';
+        gameOverFlag = false;
+        game = setInterval(drawGame, gameSpeed);
+    } else {
+        alert("Please enter your nickname to start the game.");
+    }
+}
+
+function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+}
+
+document.getElementById("start-game").addEventListener("click", startGame);
+document.getElementById("leaderboard-btn").addEventListener("click", showLeaderboard);
+document.getElementById("close-popup").addEventListener("click", closePopup);
+
 document.addEventListener("keydown", changeDirection);
+canvas.addEventListener("click", handleClick);
 
-document.querySelectorAll('.control-btn').forEach(button => {
-    button.addEventListener('click', () => setDirection(button.getAttribute('data-direction')));
+// Mobile controls handling
+const controls = document.querySelector('.controls');
+const controlButtons = document.querySelectorAll('.control-btn');
+
+controlButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        setDirection(button.getAttribute('data-direction'));
+    });
 });
-
-document.getElementById("restart").addEventListener("click", startGame);
-
-document.getElementById("close-popup").addEventListener("click", startGame);
-
-startGame();

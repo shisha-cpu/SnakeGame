@@ -9,32 +9,38 @@
 <body>
     <div class="game-container">
         <h1>Snake Game</h1>
+        <div class="game-controls">
+            <label for="nickname">Please enter your Telegram nickname to be eligible for potential rewards:</label>
+            <input type="text" id="nickname" placeholder="@your_telegram_nickname">
+            <button id="start-game">Start Game</button>
+            <button id="leaderboard-btn">Leaderboard</button>
+        </div>
         <canvas id="gameCanvas"></canvas>
+
+        <!-- Размещаем блок управления перед счетом -->
+
+
         <div class="score-board">
             <p>Score: <span id="score">0</span></p>
         </div>
 
-        <button id="restart">Restart</button>
 
-        <div class="leaderboard">
-            <label for="nickname">Please enter your Telegram nickname to be eligible for potential rewards:</label>
-            <input type="text" id="nickname" placeholder="@your_telegram_nickname">
+
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <p>Game Over! Score: <span id="final-score">0</span></p>
+                <button id="close-popup">Close</button>
+            </div>
         </div>
     </div>
-
     <div class="controls">
-        <button class="control-btn" data-direction="UP">▲</button>
-        <div>
-            <button class="control-btn" data-direction="LEFT">◄</button>
-            <button class="control-btn" data-direction="RIGHT">►</button>
-        </div>
-        <button class="control-btn" data-direction="DOWN">▼</button>
-    </div>
-
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <p>Game Over! Score: <span id="final-score">0</span></p>
-            <button id="close-popup">Close</button>
+        <div class="joystick">
+            <button class="control-btn" data-direction="UP">▲</button>
+            <div class="joystick-row">
+                <button class="control-btn" data-direction="LEFT">◄</button>
+                <button class="control-btn" data-direction="RIGHT">►</button>
+            </div>
+            <button class="control-btn" data-direction="DOWN">▼</button>
         </div>
     </div>
 
