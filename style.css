@@ -2,16 +2,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* height: 100vh; */
+    height: 100vh;
     margin: 0;
     background-color: #282c34;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: white;
-    /* transition: background-color 0.5s ease; */
-}
-
-body.game-over {
-    background-color: #000;
 }
 
 .game-container {
@@ -23,21 +18,14 @@ body.game-over {
 
 canvas {
     background-color: #111;
-    border: 3px solid #61dafb;
+    border: 3px solid #9945ff;
     border-radius: 10px;
-    margin-bottom: 20px;
-    transition: box-shadow 0.3s ease;
-}
-
-canvas:hover {
-    box-shadow: 0 0 15px #61dafb;
 }
 
 h1 {
     margin-bottom: 20px;
     font-size: 2em;
-    color: #61dafb;
-    animation: fadeIn 1s ease;
+    color: #711dd9;
 }
 
 .score-board {
@@ -46,38 +34,30 @@ h1 {
 }
 
 button {
-    width: 60px;
-    height: 60px;
-    font-size: 1.5em;
-    background-color: #61dafb;
-    border: none;
-    margin: 5px;
-    border-radius: 10px;
-    color: #000;
-    cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.3s ease;
-}
-
-button:active {
-    background-color: #34a2db;
-    transform: scale(0.9);
-}
-
-button:hover {
-    background-color: #34a2db;
-}
-
-#restart {
     width: 100px;
     height: 40px;
     font-size: 1em;
     margin-top: 20px;
+    background-color: #711dd9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.leaderboard {
+    margin-top: 20px;
+}
+
+input {
+    padding: 5px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #9945ff;
 }
 
 .controls {
-
-    /* display: flex; */
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
@@ -87,9 +67,42 @@ button:hover {
     justify-content: center;
 }
 
-@keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+.control-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5em;
+    margin: 5px;
+    background-color: #711dd9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.popup-content {
+    color: black;
+}
+
+button#close-popup {
+    margin-top: 20px;
+    background-color: #711dd9;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 @media (max-width: 600px) {
@@ -99,17 +112,13 @@ button:hover {
     }
 
     button {
-        width: 50px;
-        height: 50px;
-        font-size: 1.2em;
-    }
-
-    #restart {
         width: 90px;
         height: 35px;
         font-size: 0.9em;
     }
-    #gameCanvas {
-        max-width: 320px;
+
+    .control-btn {
+        width: 40px;
+        height: 40px;
     }
 }

@@ -10,8 +10,8 @@ let direction = null;
 let food = generateFood();
 let score = 0;
 let game;
-let gameOverFlag = false; // Флаг для отслеживания состояния игры
-const gameSpeed = 100; // Устанавливаем скорость игры
+let gameOverFlag = false;
+const gameSpeed = 100;
 
 function generateFood() {
     return {
@@ -43,7 +43,6 @@ function handleClick(event) {
     const dx = x - centerX;
     const dy = y - centerY;
 
-    // Определяем направление в зависимости от клика
     if (Math.abs(dx) > Math.abs(dy)) {
         setDirection(dx > 0 ? "RIGHT" : "LEFT");
     } else {
@@ -55,12 +54,13 @@ function drawGame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Еда
-    ctx.fillStyle = "red";
-    ctx.fillRect(food.x, food.y, box, box);
+    const img = new Image();
+    img.src = "https://cryptologos.cc/logos/solana-sol-logo.png";
+    ctx.drawImage(img, food.x, food.y, box, box);
 
     // Змейка
     for (let i = 0; i < snake.length; i++) {
-        ctx.fillStyle = i === 0 ? "lime" : "green";
+        ctx.fillStyle = i === 0 ? "#711dd9" : "#9945ff";
         ctx.fillRect(snake[i].x, snake[i].y, box, box);
     }
 
@@ -82,15 +82,9 @@ function drawGame() {
         snake.pop();
     }
 
-    // Добавление новой головы
     let newHead = { x: snakeX, y: snakeY };
 
-    // Проверка на столкновение
-    if (
-        snakeX < 0 || snakeY < 0 ||
-        snakeX >= canvas.width || snakeY >= canvas.height ||
-        collision(newHead, snake)
-    ) {
+    if (snakeX < 0 || snakeY < 0 || snakeX >= canvas.width || snakeY >= canvas.height || collision(newHead, snake)) {
         gameOver();
     }
 
@@ -106,12 +100,10 @@ function collision(head, body) {
 
 function gameOver() {
     if (!gameOverFlag) {
-        gameOverFlag = true; // Устанавливаем флаг окончания игры
-        document.body.classList.add('game-over');
-        alert("Game Over! Score: " + score);
-
-        // Перезапуск игры через небольшой интервал
-        setTimeout(startGame, 100);
+        gameOverFlag = true;
+        document.getElementById('final-score').innerText = score;
+        document.getElementById('popup').style.display = 'block';
+        clearInterval(game);
     }
 }
 
@@ -121,22 +113,19 @@ function startGame() {
     food = generateFood();
     score = 0;
     document.getElementById("score").innerText = score;
-    document.body.classList.remove('game-over');
-    gameOverFlag = false; // Сбрасываем флаг при перезапуске игры
-    clearInterval(game); // Останавливаем текущий интервал
-    game = setInterval(drawGame, gameSpeed); // Устанавливаем новый интервал
+    gameOverFlag = false;
+    document.getElementById('popup').style.display = 'none';
+    game = setInterval(drawGame, gameSpeed);
 }
 
 document.addEventListener("keydown", changeDirection);
 
-// Добавляем обработчик кликов на игровом экране
-canvas.addEventListener("click", handleClick);
-
-// Отключаем скроллинг на мобильных при свайпах
-canvas.addEventListener("touchmove", function(event) {
-    event.preventDefault();
-}, { passive: false });
+document.querySelectorAll('.control-btn').forEach(button => {
+    button.addEventListener('click', () => setDirection(button.getAttribute('data-direction')));
+});
 
 document.getElementById("restart").addEventListener("click", startGame);
+
+document.getElementById("close-popup").addEventListener("click", startGame);
 
 startGame();
