@@ -1,5 +1,6 @@
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 0;
@@ -13,6 +14,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 20px; /* Добавлен отступ перед кнопками */
 }
 
 canvas {
@@ -20,16 +22,17 @@ canvas {
     border: 3px solid #9945ff;
     border-radius: 10px;
     margin-bottom: 20px;
+
 }
 
 h1 {
-    /* margin-bottom: 20px; */
+    margin-bottom: 20px;
     font-size: 2em;
     color: #711dd9;
 }
 
 .score-board {
-    /* margin-bottom: 20px; */
+    margin-bottom: 20px;
     font-size: 1.2em;
 }
 
@@ -47,52 +50,9 @@ button:hover {
     background-color: #5a0d94;
 }
 
-#restart {
-    width: 100px;
-    height: 40px;
-    font-size: 1em;
-    margin-top: 20px;
-}
-
-.game-controls {
-    margin: 20px 0;
-    margin-top: -20px;
-}
-
-#popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    color: black;
-    padding: 20px;
-    border-radius: 10px;
-    display: none;
-    z-index: 1000;
-}
-
-#popup input {
-    margin-bottom: 10px;
-    padding: 5px;
-    width: 100%;
-}
-
-#popup button {
-    background-color: #711dd9;
-    color: white;
-    border: none;
-    padding: 10px;
-    margin: 5px 0;
-    cursor: pointer;
-}
-
-#popup button:hover {
-    background-color: #5a0d94;
-}
-
 .controls {
-    margin-bottom: 20px;
+    display: none;
+
 }
 
 .joystick {
@@ -105,7 +65,10 @@ button:hover {
     display: flex;
     justify-content: center;
 }
-
+#start-game , #leaderboard-btn{
+    padding: 10px;
+    font-size: 20px;
+}
 .control-btn {
     width: 60px;
     height: 60px;
@@ -122,29 +85,49 @@ button:hover {
 .control-btn:hover {
     background-color: #5a0d94;
 }
-.controls{
-    display: none;
+#popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    display: none; /* Popup скрыт по умолчанию */
+    z-index: 1000;
 }
+
+#popup button {
+    background-color: #711dd9;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#popup button:hover {
+    background-color: #5a0d94;
+}
+
 @media (max-width: 600px) {
     canvas {
         width: 100%;
         height: auto;
     }
 
-    .controls {
-        display: flex;
-    }
-
     .control-btn {
         width: 50px;
-        height: 40px;
-        font-size: 1.4em;
+        height: 50px;
+        font-size: 1.2em;
     }
-    .game-container{
-        max-width: 250px;
-    }
-    .controls{
-        margin-left: 10px;
-        margin-top: 20px;
+    .controls {
+        display: block;
+        position: fixed;
+        bottom: 20px; /* Фиксированное расположение внизу */
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 }

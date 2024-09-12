@@ -152,6 +152,11 @@ document.getElementById("close-popup").addEventListener("click", closePopup);
 
 document.addEventListener("keydown", changeDirection);
 canvas.addEventListener("click", handleClick);
+document.addEventListener('keydown', function(event) {
+    if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
+        event.preventDefault();  // Блокируем скроллинг страницы
+    }
+});
 
 // Mobile controls handling
 const controls = document.querySelector('.controls');
