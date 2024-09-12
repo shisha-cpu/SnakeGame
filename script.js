@@ -13,12 +13,6 @@ let game;
 let gameOverFlag = false; // Флаг для отслеживания состояния игры
 const gameSpeed = 100; // Устанавливаем скорость игры
 
-// Координаты для отслеживания свайпов
-let touchStartX = 0;
-let touchStartY = 0;
-let touchEndX = 0;
-let touchEndY = 0;
-
 function generateFood() {
     return {
         x: Math.floor(Math.random() * 20) * box,
@@ -40,28 +34,20 @@ function changeDirection(event) {
     if (event.key === "ArrowRight") setDirection("RIGHT");
 }
 
-function handleTouchStart(event) {
-    const firstTouch = event.touches[0];
-    touchStartX = firstTouch.clientX;
-    touchStartY = firstTouch.clientY;
-}
+function handleClick(event) {
+    const rect = canvas.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const dx = x - centerX;
+    const dy = y - centerY;
 
-function handleTouchMove(event) {
-    const firstTouch = event.touches[0];
-    touchEndX = firstTouch.clientX;
-    touchEndY = firstTouch.clientY;
-}
-
-function handleTouchEnd() {
-    const diffX = touchEndX - touchStartX;
-    const diffY = touchEndY - touchStartY;
-
-    if (Math.abs(diffX) > Math.abs(diffY)) {
-        if (diffX > 0) setDirection("RIGHT");
-        else setDirection("LEFT");
+    // Определяем направление в зависимости от клика
+    if (Math.abs(dx) > Math.abs(dy)) {
+        setDirection(dx > 0 ? "RIGHT" : "LEFT");
     } else {
-        if (diffY > 0) setDirection("DOWN");
-        else setDirection("UP");
+        setDirection(dy > 0 ? "DOWN" : "UP");
     }
 }
 
@@ -143,10 +129,8 @@ function startGame() {
 
 document.addEventListener("keydown", changeDirection);
 
-// Добавляем события для мобильных устройств
-canvas.addEventListener("touchstart", handleTouchStart, false);
-canvas.addEventListener("touchmove", handleTouchMove, false);
-canvas.addEventListener("touchend", handleTouchEnd, false);
+// Добавляем обработчик кликов на игровом экране
+canvas.addEventListener("click", handleClick);
 
 // Отключаем скроллинг на мобильных при свайпах
 canvas.addEventListener("touchmove", function(event) {
