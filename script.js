@@ -109,22 +109,39 @@ function gameOver() {
     }
 }
 
-function saveScore() {
+async function saveScore() {
     if (nickname) {
-        const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
-        leaderboard.push({ nickname, score });
-        localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+        try {
+            const response = await fetch('http://localhost:3000/api/scores', { // Убедитесь, что этот URL соответствует вашему серверу
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nickname, score })
+            });
+            if (!response.ok) throw new Error('Failed to save score');
+        } catch (error) {
+            console.error('Error saving score:', error);
+        }
     }
 }
 
-function showLeaderboard() {
-    const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
-    let leaderboardText = 'Leaderboard:\n';
-    leaderboard.forEach(entry => {
-        leaderboardText += `${entry.nickname}: ${entry.score}\n`;
-    });
-    alert(leaderboardText);
+async function showLeaderboard() {
+    try {
+        const response = await fetch('http://localhost:3000/api/scores');
+        if (!response.ok) throw new Error('Failed to fetch leaderboard');
+        const leaderboard = await response.json();
+        let leaderboardText = '';
+        leaderboard.forEach(entry => {
+            leaderboardText += `<li>${entry.nickname}: ${entry.score}</li>`;
+        });
+        document.getElementById('leaderboard-list').innerHTML = leaderboardText;
+        document.getElementById('leaderboard-popup').style.display = 'block';
+    } catch (error) {
+        console.error('Error fetching leaderboard:', error);
+    }
 }
+
 
 function startGame() {
     nickname = document.getElementById("nickname").value.trim();
@@ -144,11 +161,17 @@ function startGame() {
 
 function closePopup() {
     document.getElementById('popup').style.display = 'none';
+    document.getElementById('leaderboard-popup').style.display = 'none';
+    document.getElementById("nickname").style.display = "block";
+    document.getElementById("start-game").style.display = "block";
+    document.getElementById("leaderboard-btn").style.display = "block";
+    document.querySelector(".controls").style.display = "none";
 }
 
 document.getElementById("start-game").addEventListener("click", startGame);
 document.getElementById("leaderboard-btn").addEventListener("click", showLeaderboard);
 document.getElementById("close-popup").addEventListener("click", closePopup);
+document.getElementById("close-leaderboard-popup").addEventListener("click", closePopup);
 
 document.addEventListener("keydown", changeDirection);
 canvas.addEventListener("click", handleClick);

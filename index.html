@@ -21,25 +21,34 @@
             <p>Score: <span id="score">0</span></p>
         </div>
 
-
-
+        <!-- Game Over Popup -->
         <div id="popup" class="popup">
             <div class="popup-content">
                 <p>Game Over! Score: <span id="final-score">0</span></p>
                 <button id="close-popup">Close</button>
             </div>
         </div>
+
+        <!-- Leaderboard Popup -->
+        <div id="leaderboard-popup" class="popup">
+            <div class="popup-content">
+                <h2>Leaderboard</h2>
+                <ul id="leaderboard-list"></ul>
+                <button id="close-leaderboard-popup">Close</button>
+            </div>
+        </div>
     </div>
 
-    <!-- Блок управления перемещен вниз -->
+    <!-- Game Controls for Mobile -->
     <div class="controls">
         <div class="joystick">
             <button class="control-btn" data-direction="UP">▲</button>
             <div class="joystick-row">
                 <button class="control-btn" data-direction="LEFT">◄</button>
+                <button class="control-btn" data-direction="DOWN">▼</button>
                 <button class="control-btn" data-direction="RIGHT">►</button>
             </div>
-            <button class="control-btn" data-direction="DOWN">▼</button>
+ 
         </div>
     </div>
 
