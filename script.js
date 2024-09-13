@@ -160,13 +160,21 @@ function startGame() {
 }
 
 function closePopup() {
+    // Закрываем popup
     document.getElementById('popup').style.display = 'none';
     document.getElementById('leaderboard-popup').style.display = 'none';
-    document.getElementById("nickname").style.display = "block";
-    document.getElementById("start-game").style.display = "block";
-    document.getElementById("leaderboard-btn").style.display = "block";
-    document.querySelector(".controls").style.display = "none";
+    
+    // Восстанавливаем интерфейс
+    if (!gameOverFlag) {  // Если игра не окончена, то показываем элементы
+        document.getElementById("nickname").style.display = "block";
+        document.getElementById("start-game").style.display = "block";
+        document.getElementById("leaderboard-btn").style.display = "block";
+    } 
+
+    // Всегда показываем кнопки управления после закрытия popup
+    document.querySelector(".controls").style.display = "flex";
 }
+
 
 document.getElementById("start-game").addEventListener("click", startGame);
 document.getElementById("leaderboard-btn").addEventListener("click", showLeaderboard);

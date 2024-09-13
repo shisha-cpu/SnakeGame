@@ -15,7 +15,21 @@
             <button id="start-game">Start Game</button>
             <button id="leaderboard-btn">Leaderboard</button>
         </div>
-        <canvas id="gameCanvas"></canvas>
+        <div class="canvas-container">
+            <canvas id="gameCanvas"></canvas>
+
+            <!-- Game Controls for Mobile inside Canvas -->
+            <div class="controls">
+                <div class="joystick">
+                    <button class="control-btn" data-direction="UP">▲</button>
+                    <div class="joystick-row">
+                        <button class="control-btn" data-direction="LEFT">◄</button>
+                        <button class="control-btn" data-direction="DOWN">▼</button>
+                        <button class="control-btn" data-direction="RIGHT">►</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="score-board">
             <p>Score: <span id="score">0</span></p>
@@ -36,19 +50,6 @@
                 <ul id="leaderboard-list"></ul>
                 <button id="close-leaderboard-popup">Close</button>
             </div>
-        </div>
-    </div>
-
-    <!-- Game Controls for Mobile -->
-    <div class="controls">
-        <div class="joystick">
-            <button class="control-btn" data-direction="UP">▲</button>
-            <div class="joystick-row">
-                <button class="control-btn" data-direction="LEFT">◄</button>
-                <button class="control-btn" data-direction="DOWN">▼</button>
-                <button class="control-btn" data-direction="RIGHT">►</button>
-            </div>
- 
         </div>
     </div>
 
